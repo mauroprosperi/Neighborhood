@@ -10,14 +10,15 @@
 			zoom: 13
 		});
 	var locations = [
-	{title: 'La casa delGordo', location: {lat: -32.946843, lng: -68.804855}}
-	{title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}}
-	{title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}}
-	{title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}}
+	{title: 'La casa delGordo', location: {lat: -32.946843, lng: -68.804855}},
+	{title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}},
+	{title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}},
+	{title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}},
 	{title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
 	];
 
 	var largeInfoWindow = new google.maps.InfoWindow();
+	var bounds = new google.maps.LatLngBounds();
 
 
 	for(var i = 0; i< locations.length; i++){
@@ -33,6 +34,28 @@
 		id: i
 
 	});
+		
+		markers.push(marker);
+
+		bounds.extend(marker.position);
+
+		marker.addListener('click',function(){
+			populateInfoWindow(this, largeInfoWindow);
+		});
+	}
+
+	map.fitBounds(bounds);
+
+	function populateInfoWindow(marker, InfoWindow) {
+		if (InfoWindow.marker != marker) {
+			InfoWindow.marker = marker;
+			InfoWindow.setContent('<div>' + marker.title + '</div>');
+			InfoWindow.open(map, marker);
+
+			InfoWindow.addListener('closeclick',function(){
+				InfoWindow.setMarker(null);
+			});
+		}
 	}
 
 }
