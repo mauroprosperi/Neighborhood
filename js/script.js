@@ -11,5 +11,9 @@
  		map: map,
  		title: ' First Marker'
  	});
+
+ 	var infoWindow = new google.maps.InfoWindow({
+ 		content: 'o you ever feel like a infowindow? ' + ' ready?' 
+ 	});
 }
  initMap();
