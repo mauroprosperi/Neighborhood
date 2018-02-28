@@ -3,14 +3,54 @@
 	// crea un nuevo array en blanco para todos los marcadores.
 	var markers = [];
 
-	// Crea el mapa y lo posiciona en center
 	function initMap(){  
+		var styles = [
+		   {
+			featureType: 'water',
+			stylers: [
+			{ color: '#19a0d8'}
+			]
+		},{
+			featureType: 'administrative',
+			elementType: 'labels.text.stroke',
+			stylers: [
+			{color: '#ffffff'},
+			{ weight: 6}
+			]
+		},{
+			featureType: 'administrative',
+			elementType: 'labels.text.fill',
+			stylers: [
+			{color: '#e85113'}
+			]
+		},{
+			featureType: 'road.highway',
+			elementType: 'geometry.stroke',
+			stylers: [
+			{color: '#efe9e4'},
+			{lightness: -40}]
+		},{
+			featureType: 'transit.station',
+			stylers:[
+			{ weight: 9},
+			{ hue: '#e85113'}
+			]
+		},{
+			featureType: 'road.highway',
+			elementType: 'labels.icon',
+			stylers: [
+			{ visibility: 'off'}
+			]
+		}
+		];
+		// Crea el mapa y lo posiciona en una posicion de Lat y Lng.
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: -32.912951, lng: -68.862329},
 			zoom: 13,
+			styles:
 			mapTypeControl: false
 		});
-
+		// pasar a una Data base
 	var locations = [
 	  {title: 'La casa delGordo', location: {lat: -32.946843, lng: -68.804855}},
 	  {title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}},
