@@ -17,5 +17,23 @@
 	{title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
 	];
 
+	var largeInfoWindow = new google.maps.InfoWindow();
+
+
+	for(var i = 0; i< locations.length; i++){
+		//pido las posiciones y los titulos del array
+		var position = locations[i].location;
+		var title = locations[i].title;
+		// creo una nueva marca por locacion
+		var marker = new google.maps.Marker({
+		map: map,
+		position: position,
+		title: title,
+		animation: google.maps.Animation.DROP,
+		id: i
+
+	});
+	}
+
 }
  initMap();
