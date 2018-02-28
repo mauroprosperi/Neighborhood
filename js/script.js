@@ -47,7 +47,7 @@
 		map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: -32.912951, lng: -68.862329},
 			zoom: 13,
-			styles:
+			styles: styles,
 			mapTypeControl: false
 		});
 		// pasar a una Data base
@@ -61,6 +61,11 @@
 
 	var largeInfoWindow = new google.maps.InfoWindow();
 
+	//Icono default para los marcadores
+	var defaultIcon = makeMarkerIcon('0091ff');
+	//Icono iluminado cuando el usuario señale el marcador
+	var highlightedIcon = makeMarkerIcon('FFFF24');
+
 
 	for(var i = 0; i< locations.length; i++){
 		//pido las posiciones y los titulos del array
@@ -71,16 +76,28 @@
 		var marker = new google.maps.Marker({
 			position: position,
 			title: title,
+			icon: defaultIcon,
 			animation: google.maps.Animation.DROP,
 			id: i
 			});
 
 		// empuja nuestro marcador hacia nuestro array de marcadores
 		markers.push(marker);
+
 		// crea el evento que muestra informacion al hacer click en cada marcador
-		 marker.addListener('click', function() {
-            populateInfoWindow(this, largeInfoWindow);
+		marker.addListener('click', function() {
+           populateInfoWindow(this, largeInfoWindow);
           });
+
+		//eventos para cambiar de color cuando es señalado el marcador
+		marker.addListener('mouseover', function(){
+			this.setIcon(highlightedIcon);
+		});
+
+		marker.addListener('mouseout', function(){
+			this.setIcon(defaultIcon);
+		});
+		
         }
         document.getElementById('show-listings').addEventListener('click', showListings);
         document.getElementById('hide-listings').addEventListener('click', hideListings);		
@@ -114,4 +131,8 @@
           markers[i].setMap(null);
         }
       }
+
+    function makeMarkerIcon(markerColor){
+    	''
+    }
 initMap();
