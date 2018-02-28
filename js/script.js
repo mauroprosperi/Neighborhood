@@ -26,6 +26,7 @@
 		//pido las posiciones y los titulos del array
 		var position = locations[i].location;
 		var title = locations[i].title;
+
 		// creo una nueva marca por locacion
 		var marker = new google.maps.Marker({
 			position: position,
@@ -48,7 +49,7 @@
 	function populateInfoWindow(marker, infoWindow) {
 		if (infoWindow.marker != marker) {
 			infoWindow.marker = marker;
-			infoWindow.setContent('<div>' + marker.title + '</div>');
+			infoWindow.setContent('<div>' + marker.title + marker.position + '</div>');
 			infoWindow.open(map, marker);
 
 			infoWindow.addListener('closeclick',function(){
