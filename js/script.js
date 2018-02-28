@@ -17,5 +17,9 @@
  	var infoWindow = new google.maps.InfoWindow({
  		content: 'o you ever feel like a infowindow? ' + ' ready?' 
  	});
+ 	// funcion de click // 
+ 	marker.addListener('click', function(){
+ 		infoWindow.open(map, marker);
+ 	});
 }
  initMap();
