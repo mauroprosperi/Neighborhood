@@ -52,7 +52,7 @@
 		});
 		// pasar a una Data base
 	var locations = [
-	  {title: 'La casa delGordo', location: {lat: -32.946843, lng: -68.804855}},
+	  {title: 'La casa delGordo, se vende pastafrola y chiken diners', location: {lat: -32.946843, lng: -68.804855}},
 	  {title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}},
 	  {title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}},
 	  {title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}},
@@ -97,7 +97,7 @@
 		marker.addListener('mouseout', function(){
 			this.setIcon(defaultIcon);
 		});
-		
+
         }
         document.getElementById('show-listings').addEventListener('click', showListings);
         document.getElementById('hide-listings').addEventListener('click', hideListings);		
