@@ -5,21 +5,14 @@
 			center: {lat: -32.912951, lng: -68.862329},
 			zoom: 13
 		});
+	var locations = [
+	{title: 'La casa delGordo', location: {lat: -32.946843, lng: -68.804855}}
+	{title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}}
+	{title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}}
+	{title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}}
+	{title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
+	];
 
- 	var gordoHome = {lat: -32.946843,lng: -68.804855};
- 	// crea un marcador //
- 	var marker = new google.maps.Marker({
- 		position: gordoHome,
- 		map: map,
- 		title: ' First Marker'
- 	});
- 	// crea una ventana con informacion // 
- 	var infoWindow = new google.maps.InfoWindow({
- 		content: 'o you ever feel like a infowindow? ' + ' ready?' 
- 	});
- 	// funcion de click // 
- 	marker.addListener('click', function(){
- 		infoWindow.open(map, marker);
- 	});
+
 }
  initMap();
