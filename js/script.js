@@ -90,13 +90,12 @@
           });
 
 		//eventos para cambiar de color cuando es señalado el marcador
-		marker.addListener('mouseover', function(){
-			this.setIcon(highlightedIcon);
-		});
-
-		marker.addListener('mouseout', function(){
-			this.setIcon(defaultIcon);
-		});
+		marker.addListener('mouseover', function() {
+           this.setIcon(highlightedIcon);
+        });
+        marker.addListener('mouseout', function() {
+           this.setIcon(defaultIcon);
+        });
 
         }
         document.getElementById('show-listings').addEventListener('click', showListings);
@@ -133,6 +132,13 @@
       }
 
     function makeMarkerIcon(markerColor){
-    	''
-    }
+        var markerImage = new google.maps.MarkerImage(
+          'http://chart.googleapis.com/chart?chst=d_map_spin&chld=1.15|0|'+ markerColor +
+          '|40|_|%E2%80%A2',
+          new google.maps.Size(21, 34),
+          new google.maps.Point(0, 0),
+          new google.maps.Point(10, 34),
+          new google.maps.Size(21,34));
+        return markerImage;
+      }
 initMap();
