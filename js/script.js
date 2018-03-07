@@ -310,7 +310,10 @@
 				infoWindow.setMarker = null;
 			});
 		}
-	}
+  }
+  
+  var streetViewService = new google.maps.streetViewService();
+  var radius = 50;
 
 	// funcion que muestra todas las marcas en el mapa
 	function showListings() {
