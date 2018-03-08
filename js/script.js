@@ -313,8 +313,30 @@
     var streetViewService = new google.maps.streetViewService();
     var radius = 50;
   }
-  
 
+  // Si el status es OK dando por encontrado el panorama, computar la posicion
+  // de la imagen del streeview, calcular la posicion para obtener un panorama
+  function getStreetView(data, status){
+    if ( status == google.maps.streetViewStatus.OK){
+      var nearStreetViewLocation = data.location.latLng;
+      var heading = google.maps.geometry.spherical.computeHeading(
+        nearStreetViewLocation, marker.position);
+        infoWindow.setContent('<div>' + marker.title + '</div><div> id="pano"></div>');
+        var panoramaOptions = {
+          position: nearStreetViewLocation,
+          // point of view
+          pov: {
+            heading: heading,
+            pitch: 30
+          }
+        };
+
+    } else{
+      infoWindow.setContent('<div>' + marker.title + '</div>' + '<div>No Street View Found</div>');
+    }
+  }
+  // Usar el servicio para obtener una imgen de 50 metros en el marcador
+  streetViewService.getPanoramaByLocation(marker.position, radius, getStreetView);
 
 	// funcion que muestra todas las marcas en el mapa
 	function showListings() {
