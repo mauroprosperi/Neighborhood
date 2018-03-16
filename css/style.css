@@ -44,3 +44,8 @@ hr {
 	width: 200px;
 	height: 200px;
 }
+#toggle-drawing{
+	width: 27%;
+	position: relative;
+	margin-left: 10px;
+}
