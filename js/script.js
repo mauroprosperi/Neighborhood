@@ -258,6 +258,20 @@ function initMap(){
       {title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
     ];
     var largeInfowindow = new google.maps.InfoWindow();
+
+    var drawingManager = new google.maps.drawing.DrawingManager({
+      drawingMode: google.maps.drawing.OverlayType.POLIGON,
+      drawingControl: true,
+      drawingControlOptions: {
+        position: google.maps.ControlPosition.TOP_LEFT,
+        drawingModes: [
+          google.maps.drawing.OverlayType.POLIGON
+        ]
+      }
+    });
+
+
+
     // Style the markers a bit. This will be our listing marker icon.
     var defaultIcon = makeMarkerIcon('0091ff');
     // Create a "highlighted location" marker color for when the user
