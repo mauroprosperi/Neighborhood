@@ -16,7 +16,7 @@ hr {
 	height: 1px;
 	margin: 20px 0 20px 0;
 	border: none;
-  }
+}
 #hide-listings,
 #show-listings {
 	background-color: #1C3D5A;
@@ -30,7 +30,6 @@ hr {
   position: absolute;
   right: 0px;
 }
-
 .options-box{
 	background: #1C3D5A;
 	border: 1px solid #999;
@@ -41,7 +40,6 @@ hr {
 	text-align: center;
 	width: 340px;
 }
-
 #pano{
 	width: 200px;
 	height: 200px;
