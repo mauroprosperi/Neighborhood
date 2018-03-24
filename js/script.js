@@ -2,6 +2,10 @@ var map;
 
 	// crea un nuevo array en blanco para todos los marcadores.
 var markers = [];
+
+ // this global polygon variable is to ensure only ONE polygon is rendered.
+var polygon = null;
+
 function initMap(){
 //estilos
 		var styles =[
@@ -259,18 +263,17 @@ function initMap(){
     ];
     var largeInfowindow = new google.maps.InfoWindow();
 
+    // Initialize the drawing manager
     var drawingManager = new google.maps.drawing.DrawingManager({
-      drawingMode: google.maps.drawing.OverlayType.POLIGON,
+      drawingMode: google.maps.drawing.OverlayType.POLYGON,
       drawingControl: true,
       drawingControlOptions: {
         position: google.maps.ControlPosition.TOP_LEFT,
         drawingModes: [
-          google.maps.drawing.OverlayType.POLIGON
+          google.maps.drawing.OverlayType.POLYGON
         ]
       }
     });
-
-
 
     // Style the markers a bit. This will be our listing marker icon.
     var defaultIcon = makeMarkerIcon('0091ff');
@@ -305,8 +308,55 @@ function initMap(){
         this.setIcon(defaultIcon);
       });
     }
-    document.getElementById('show-listings').addEventListener('click', showListings);
-    document.getElementById('hide-listings').addEventListener('click', hideListings);
+    // new syntax, dunno how to make it work yet
+      //var [hide_listings] = document.getElementsByClassName('hide-listings');
+      //from [hide_listing].addEventListener('click',show_listings);
+    
+      // added event listener on click to the buttons, this way, because.. classes...
+    var show_listings = document.getElementsByClassName('show-listings');
+    var show_listing = show_listings[0];
+    show_listing.addEventListener('click',showListings);
+    
+    var hide_listings = document.getElementsByClassName('hide-listings');
+    var hide_listing = hide_listings[0];
+    hide_listing.addEventListener('click', hideListings);
+
+    var toggle_drawings = document.getElementsByClassName('toggle-drawing');
+    var toggle_drawing = toggle_drawings[0];
+    toggle_drawing.addEventListener('click', function(){
+      toggleDrawing(drawingManager);
+    });
+
+    // add an event listener so that the polygon is captured, call the
+    // searchWithinPolygon function. This will show the markers in the polygon,
+    // and hie any outside of it.
+
+    drawingManager.addListener('overlaycomplete',function(event){
+      // First, check if there is an existing polygon.
+      // If there is, get rid of it and remove the markers
+      // esto limita el polygon a 1, se puede eliminar para permitir varios
+      if (polygon) {
+        polygon.setMap(null);
+        hideListings();
+      }
+      // Switching the rawing moed to the HAND.
+      drawingManager.setDrawingMode(null);
+      // Creating a new editable polygon from the overlay.
+      polygon = event.overlay;
+      // el polygon tambien puede ser draggable
+      polygon.setEditable(true);
+      // Searching within the polygon.
+      searchWithinPolygon();
+      // Make sure the search is re-done if the poly is changed.
+      polygon.getPath().addListener('set_at', searchWithinPolygon);
+      polygon.getPath().addListener('insert_at', searchWithinPolygon);
+    });
+  // old way working whit ID
+    //document.getElementById('show-listings').addEventListener('click', showListings);
+    //document.getElementById('hide-listings').addEventListener('click', hideListings);
+    // document.getElementById('toggle-drawing').addEventListener('click',function(){
+    //toggleDrawing(drawingManager);
+    //});
   }
   // This function populates the infowindow when the marker is clicked. We'll only allow
   // one infowindow which will open at the marker that is clicked, and populate based
@@ -381,5 +431,27 @@ function initMap(){
       new google.maps.Point(10, 34),
       new google.maps.Size(21,34));
     return markerImage;
+  }
+
+  // this shows and hides the drawing options
+  function toggleDrawing(drawingManager) {
+    if (drawingManager.map) {
+      drawingManager.setMap(null);
+      if (polygon){
+        polygon.setMap(null);
+      }
+    } else {
+      drawingManager.setMap(map);
+    }
+  }
+
+  function searchWithinPolygon(){
+    for (let i = 0; i < markers.length; i++) {
+      if (google.maps.geometry.poly.containsLocation(markers[i].position, polygon)){
+        markers[i].setMap(map);
+      } else {
+        markers[i].setmap(null);
+      }
+    }
   }
 initMap();
