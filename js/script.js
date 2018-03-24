@@ -1,9 +1,7 @@
 var map;
-
-	// crea un nuevo array en blanco para todos los marcadores.
+// crea un nuevo array en blanco para todos los marcadores.
 var markers = [];
-
- // this global polygon variable is to ensure only ONE polygon is rendered.
+// this global polygon variable is to ensure only ONE polygon is rendered.
 var polygon = null;
 
 function initMap(){
@@ -350,6 +348,8 @@ function initMap(){
       // Make sure the search is re-done if the poly is changed.
       polygon.getPath().addListener('set_at', searchWithinPolygon);
       polygon.getPath().addListener('insert_at', searchWithinPolygon);
+      var Area = google.maps.geometry.spherical.computeArea(polygon.getPath());
+      alert(Area);
     });
   // old way working whit ID
     //document.getElementById('show-listings').addEventListener('click', showListings);
@@ -450,8 +450,7 @@ function initMap(){
       if (google.maps.geometry.poly.containsLocation(markers[i].position, polygon)){
         markers[i].setMap(map);
       } else {
-        markers[i].setmap(null);
+        markers[i].setMap(null);
       }
     }
   }
-initMap();
