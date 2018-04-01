@@ -242,8 +242,6 @@ function initMap(){
     ]
   }
 ];
-
-
 		// Crea el mapa y lo posiciona en una posicion de Lat y Lng
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -32.912951, lng: -68.862329},
@@ -324,7 +322,11 @@ function initMap(){
     toggle_drawing.addEventListener('click', function(){
       toggleDrawing(drawingManager);
     });
-
+    var zoom_to_areas = document.getElementsByClassName('zoom-to-area');
+    var zoom_to_area = zoom_to_areas[0];
+    zoom_to_area.addEventListener('click', function(){
+      zoomToArea
+    });
     // add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
     // and hie any outside of it.
