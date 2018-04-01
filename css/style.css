@@ -11,12 +11,6 @@ h1{
 	margin: 0 0 10px 0;
 	text-align: left;
 }
-hr{
-	background: #D0D7D9;
-	height: 1px;
-	margin: 20px 0 20px 0;
-	border: none;
-}
 .hide-listings,
 .show-listings {
 	background-color: #1C3D5A;
