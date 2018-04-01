@@ -325,7 +325,7 @@ function initMap(){
     var zoom_to_areas = document.getElementsByClassName('zoom-to-area');
     var zoom_to_area = zoom_to_areas[0];
     zoom_to_area.addEventListener('click', function(){
-      zoomToArea
+      zoomToArea();
     });
     // add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
@@ -461,14 +461,18 @@ function initMap(){
   function zoomToArea(){
     // inicializo el geocoder
     var geocoder = new google.maps.Geocoder();
-    var adress = document.getElementById('zoom-to-area-text').value;
-    if (adress == ''){
-      window.alert('You must enter an area, or adress.');
+    // Agarro la ubicacion o lugar que el usuario escribio.
+    var zoom_to_area_texts = document.getElementsByClassName('zoom-to-area-text');
+    var address = zoom_to_area_texts[0].value;
+    //revisa si escribio en blanco
+    if (address == ''){
+      window.alert('You must enter an area, or address.');
     } else {
+      //Geocodeo la ubicacion para obtener el centro, luego, le hago zoom.
       geocoder.geocode(
-        { adress: adress,
-        componentRestrictions: {locality: 'New York'}
-        }, function(results, status) {
+        { address: address,
+        componentRestrictions: {locality: 'Mendoza'}
+      }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.setZoom(15);
@@ -479,6 +483,5 @@ function initMap(){
     }
   }
   
-  var zoom_to_area_texts = document.getElementsByClassName('zoom-to-area-text');
-  var adress = zoom_to_area_texts[0].value;
+
   
