@@ -456,3 +456,29 @@ function initMap(){
       }
     }
   }
+
+  // Thi function takes the input value and locate it and zooms into that area.
+  function zoomToArea(){
+    // inicializo el geocoder
+    var geocoder = new google.maps.Geocoder();
+    var adress = document.getElementById('zoom-to-area-text').value;
+    if (adress == ''){
+      window.alert('You must enter an area, or adress.');
+    } else {
+      geocoder.geocode(
+        { adress: adress,
+        componentRestrictions: {locality: 'New York'}
+        }, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            map.setZoom(15);
+          } else {
+            window.alert('We could not find that location - try entering a more' + 'especific place.');
+          }
+        });
+    }
+  }
+  
+  var zoom_to_area_texts = document.getElementsByClassName('zoom-to-area-text');
+  var adress = zoom_to_area_texts[0].value;
+  
