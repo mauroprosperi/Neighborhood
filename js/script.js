@@ -245,7 +245,7 @@ function initMap(){
 		// Crea el mapa y lo posiciona en una posicion de Lat y Lng
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -32.912951, lng: -68.862329},
-      zoom: 13,
+      zoom: 15,
       styles: styles,
       mapTypeControl: false
     });
