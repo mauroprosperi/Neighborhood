@@ -327,6 +327,12 @@ function initMap(){
     zoom_to_area.addEventListener('click', function(){
       zoomToArea();
     });
+
+    var search_within_times = document.getElementsByClassName('search-within-time');
+    var search_within_time = search_within_times[0];
+    search_within_time.addEventListener('click', function(){
+      searchWithinTime();
+    }); 
     // add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
     // and hie any outside of it.
