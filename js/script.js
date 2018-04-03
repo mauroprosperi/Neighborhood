@@ -517,9 +517,9 @@ function initMap(){
         origins: origins,
         destinations: [destination],
         travelMode: google.maps.TravelMode[mode],
-        unitSystem: google.maps.unitSystem.METRIC,
+        unitSystem: google.maps.UnitSystem.METRIC,
       }, function(response, status){
-        if (status != google.maps.distanceMatrixStatus.OK){
+        if (status != google.maps.DistanceMatrixStatus.OK){
           window.alert('Error was: ' + status);
         } else {
           displayMarkersWithinTime(response);
@@ -532,7 +532,7 @@ function initMap(){
   // if the distance is LESS than the value in the picker, show it on the map.
   function displayMarkersWithinTime(response) {
     var maxDurations = document.getElementsByClassName('max-duration');
-    var maxDuration = maxDuration[0].value;
+    var maxDuration = maxDurations[0].value;
     var origins = response.originAddresses;
     var destinations = response.destinationAddresses;
     // Parse through the results, and the the distance and duration of each
@@ -541,7 +541,7 @@ function initMap(){
     for (var i=0; i<origins.length; i++){
       var results = response.rows[i].elements;
       for (var j=0; j<results.length; j++){
-        var elemtn = resutls[j];
+        var element = results[j];
         if (element.status === "OK"){
           // revisar esto
           // The distance is returned in XXX, but the text is in XXX. we only using text.
