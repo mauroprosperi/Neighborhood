@@ -488,6 +488,45 @@ function initMap(){
         });
     }
   }
+  // This functions allows the user to input a desired travel time,
+  // a travel mode and a location and only show the listings that are
+  //within that travel time ( via that travel mode) of the location.
+  function searchWithinTime(){
+    // initialize the distance matrix service.
+    var distanceMatrixService = new google.maps.DistanceMatrixService;
+    var search_within_time_texts = document.getElementsByClassName('search-within-time-text');
+    var address = search_within_time_texts[0].value;
+    // check to make sure the place entered isn't blank.
+    if (address == ''){
+      window.alert('You must enter an address');
+    } else {
+      hideListings();
+      // Use the distance matrix service to calculate the duration of the
+      // routes between all oour markers, and the destination address entered
+      // by the user. Then put all the origins into an origin matrix.
+      var origins = [];
+      for (var i = 0; i < markers.length; i++) {
+        origins[i] = markers[i].position;
+      }
+      var destination = address;
+      var modes = document.getElementsByClassName('mode');
+      var mode = modes[0].value;
+      // Now whit origin and destination defined, get all info for distances between.
+      
+      distanceMatrixService.getDistanceMatrix({
+        origins: origins,
+        destinations: [destination],
+        travelMode: google.maps.TravelMode[mode],
+        unitSystem: google.maps.unitSystem.METRIC,
+      }, function(response, status){
+        if (status != google.maps.distanceMatrixStatus.OK){
+          window.alert('Error was: ' + status);
+        } else {
+          displayMarkersWithinTime(response);
+        }
+      });
+    }
+  }
   
 
   
