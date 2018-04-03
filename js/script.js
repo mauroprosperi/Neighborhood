@@ -528,5 +528,52 @@ function initMap(){
     }
   }
   
+  // This function will go through each of the results and
+  // if the distance is LESS than the value in the picker, show it on the map.
+  function displayMarkersWithinTime(response) {
+    var maxDurations = document.getElementsByClassName('max-duration');
+    var maxDuration = maxDuration[0].value;
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+    // Parse through the results, and the the distance and duration of each
+    // loop in case multiple origins and destinations, make sure at least 1 result was found.
+    var atLeastOne = false;
+    for (var i=0; i<origins.length; i++){
+      var results = response.rows[i].elements;
+      for (var j=0; j<results.length; j++){
+        var elemtn = resutls[j];
+        if (element.status === "OK"){
+          // revisar esto
+          // The distance is returned in XXX, but the text is in XXX. we only using text.
+          var distanceText = element.distance.text; 
+          // Duration value is given in seconds so we make it MINUTES. we need 
+          // both the value and the text.
+          var duration = element.duration.value / 60;
+          var durationText = element.duration.text;
+          if (duration <= maxDuration) {
+            // the origin [i] should = the makers[i]
+            markers[i].setMap(map);
+            atLeastOne = true;
+            // Create a mini infowindow to open immediately and contain
+            // the distance and duration.
+             var infowindow = new google.maps.InfoWindow({
+               content: durationText + ' away, ' + distanceText
+             });
+             infowindow.open(map, markers[i]);
+             // put this in so that this samll window closes if the user clicks
+             // the marker, when the big infowindow opens
+             markers[i].infowindow = infowindow;
+             google.maps.event.addListener(markers[i],'click',function(){
+              this.infowindow.close();
+             });
+
+          
+
+
+          }
+        }
+      }
+    }
+  }
 
   
