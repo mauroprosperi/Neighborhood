@@ -509,8 +509,8 @@ function initMap(){
         origins[i] = markers[i].position;
       }
       var destination = address;
-      var modes = document.getElementsByClassName('mode');
-      var mode = modes[0].value;
+      var modesGet = document.getElementsByClassName('mode');
+      var mode = modesGet[0].value;
       // Now whit origin and destination defined, get all info for distances between.
       
       distanceMatrixService.getDistanceMatrix({
@@ -531,8 +531,8 @@ function initMap(){
   // This function will go through each of the results and
   // if the distance is LESS than the value in the picker, show it on the map.
   function displayMarkersWithinTime(response) {
-    var maxDurations = document.getElementsByClassName('max-duration');
-    var maxDuration = maxDurations[0].value;
+    var maxDurationsGet = document.getElementsByClassName('max-duration');
+    var maxDuration = maxDurationsGet[0].value;
     var origins = response.originAddresses;
     var destinations = response.destinationAddresses;
     // Parse through the results, and the the distance and duration of each
@@ -543,8 +543,7 @@ function initMap(){
       for (var j=0; j<results.length; j++){
         var element = results[j];
         if (element.status === "OK"){
-          // revisar esto
-          // The distance is returned in XXX, but the text is in XXX. we only using text.
+          // The distance is returned in metters. we only using text here.
           var distanceText = element.distance.text; 
           // Duration value is given in seconds so we make it MINUTES. we need 
           // both the value and the text.
@@ -557,7 +556,8 @@ function initMap(){
             // Create a mini infowindow to open immediately and contain
             // the distance and duration.
              var infowindow = new google.maps.InfoWindow({
-               content: durationText + ' away, ' + distanceText
+               content: durationText + ' away, ' + distanceText + '<div><input type=\"button\" value=\"View Route\" onclick=' +
+               '\"displayDirections(&quot;' + origins[i] + '&quot;);\"></input></div>'
              });
              infowindow.open(map, markers[i]);
              // put this in so that this samll window closes if the user clicks
@@ -566,14 +566,45 @@ function initMap(){
              google.maps.event.addListener(markers[i],'click',function(){
               this.infowindow.close();
              });
-
-          
-
-
           }
         }
       }
     }
+    if (!atLeastOne) {
+      window.alert('We could not find any locations within that distance!');
+    }
   }
 
-  
+  // this function is in response to the user selecting " show route" on one
+  // of the markers within the calculated distance. This will display the route on the map.
+  function displayDirections(origin) {
+    hideListings();
+    var directionsService = new google.maps.DirectionsService;
+    // Get the destination address from the user entered value.
+    var destinationAddressGet = document.getElementsByClassName('search-within-time-text');
+    var destinationAddress = destinationAddressGet[0].value;
+    // Get the mode again from the user entered value.
+    var modesGet = document.getElementsByClassName('mode');
+    var mode = modesGet[0].value;
+    directionsService.route({
+      // The origin is the passed in marker's position.
+      origin: origin,
+      // the destination is the user entered address.
+      destination: destinationAddress,
+      travelMode: google.maps.TravelMode[mode]
+    }, function(response, status ){
+      if (status === google.maps.DirectionsStatus.OK) {
+        var directionsDsiaplys = new google.maps.DirectionsRenderer({
+          map: map,
+          directions: response,
+          draggable: true,
+          polylineOptions: {
+            strokeColor: '#6633FF',
+            strokeWeight: 7
+          }
+        });
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
