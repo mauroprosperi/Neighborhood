@@ -24,7 +24,6 @@ h1{
 .options-box{
 	background: #1C3D5A;
 	border: 1px solid #999;
-	border-radius: 3px;
 	line-height: 25px;
 	text-align: center;
 	width: 340px;
@@ -35,13 +34,9 @@ h1{
 	width: 30%;
 	margin-top: 10px;
 }
-.draw-text{
-	border-top: 1px solid silver;
-	padding: 5px;
-	margin-top: 20px;
-	color: rgba(153, 148, 226, 0.781);
-}
-.zoom-text,.duration-text{
+.zoom,
+.duration,
+.draw{
 	border-top: 1px solid silver;
 	margin-top:20px;
 	padding: 5px;
@@ -51,15 +46,18 @@ h1{
 	text-align: center;
 	color: rgba(153, 148, 226, 0.781);
 }
-.zoom-to-area,.search-within-time, .max-duration, .mode{
+.zoom-to-area,
+.search-within-time,
+.max-duration,
+.mode,
+.destinations{ /* destination dosn't use background-color*/
 	color: rgba(153, 148, 226, 0.781);
 	background-color: #1C3D5A;
 }
-.zoom-to-area-text, .search-within-time-text {
+.zoom-to-area-text,
+.search-within-time-text {
 	background-color: #1C3D5A;
 	width: 60%;
-}
-.destinations-text{
 	color: rgba(153, 148, 226, 0.781);
 }
 #pano{
