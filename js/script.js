@@ -651,3 +651,20 @@ function initMap(){
       window.alert('We did not find any places matching that search!');
     }
   }
+
+  // this function firest twhen the user select "go" on the places search.
+  // It will do a nearby search using the entered query string or place.
+  function textSearchPlaces(){
+    var bounds = map.getBounds();
+    hiderMarkers(placemarkers);
+    var placesService = new google.maps.places.PlacesService(map);
+    var queryGet = document.getElementsByClassName('places-search');
+    placesService.textSearch({
+      query: queryGet[0].value,
+      bounds: bounds
+    }, function(results, status){
+      if (status === google.maps.places.PlacesServiceStatus.OK) {
+        createMarkerForPlaces(results);
+      }
+    });
+  }
