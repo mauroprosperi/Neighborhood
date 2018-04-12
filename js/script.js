@@ -256,6 +256,12 @@ function initMap(){
     // This autocomplete is for use in the seach in the geocoder entry box.
     var zoomAutocompleteGet = document.getElementsByClassName('zoom-to-area-text');
     var zoomAutocomplete = new google.maps.places.Autocomplete(zoomAutocompleteGet[0]);
+    // Bias the boundaries within the map for the zoom to area thext.
+    zoomAutocomplete.bindTo('bounds', map);
+    // create a searchbox in order to execute a places search
+    var searchboxGet = document.getElementsByClassName('places-search');
+    var searchbox = new google.maps.places.SearchBox(searchboxGet[0]);
+    
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
     var locations = [
@@ -316,27 +322,27 @@ function initMap(){
       //from [hide_listing].addEventListener('click',show_listings);
     
       // added event listener on click to the buttons, this way, because.. classes...
-    var show_listings = document.getElementsByClassName('show-listings');
-    var show_listing = show_listings[0];
+    var show_listingGet = document.getElementsByClassName('show-listings');
+    var show_listing = show_listingGet[0];
     show_listing.addEventListener('click',showListings);
     
-    var hide_listings = document.getElementsByClassName('hide-listings');
-    var hide_listing = hide_listings[0];
+    var hide_listingGet = document.getElementsByClassName('hide-listings');
+    var hide_listing = hide_listingGet[0];
     hide_listing.addEventListener('click', hideListings);
 
-    var toggle_drawings = document.getElementsByClassName('toggle-drawing');
-    var toggle_drawing = toggle_drawings[0];
+    var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
+    var toggle_drawing = toggle_drawingGet[0];
     toggle_drawing.addEventListener('click', function(){
       toggleDrawing(drawingManager);
     });
-    var zoom_to_areas = document.getElementsByClassName('zoom-to-area');
-    var zoom_to_area = zoom_to_areas[0];
+    var zoom_to_areaGet = document.getElementsByClassName('zoom-to-area');
+    var zoom_to_area = zoom_to_areaGet[0];
     zoom_to_area.addEventListener('click', function(){
       zoomToArea();
     });
 
-    var search_within_times = document.getElementsByClassName('search-within-time');
-    var search_within_time = search_within_times[0];
+    var search_within_timeGet = document.getElementsByClassName('search-within-time');
+    var search_within_time = search_within_timeGet[0];
     search_within_time.addEventListener('click', function(){
       searchWithinTime();
     }); 
