@@ -256,11 +256,13 @@ function initMap(){
     // This autocomplete is for use in the seach in the geocoder entry box.
     var zoomAutocompleteGet = document.getElementsByClassName('zoom-to-area-text');
     var zoomAutocomplete = new google.maps.places.Autocomplete(zoomAutocompleteGet[0]);
-    // Bias the boundaries within the map for the zoom to area thext.
+    // Bias the boundaries within the map for the zoom to area text.
     zoomAutocomplete.bindTo('bounds', map);
     // create a searchbox in order to execute a places search
     var searchboxGet = document.getElementsByClassName('places-search');
     var searchbox = new google.maps.places.SearchBox(searchboxGet[0]);
+    // Bias the searchbox to ithin the bounds of the map.
+    searchBox.setBounds(map.getBounds());
     
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
@@ -345,7 +347,10 @@ function initMap(){
     var search_within_time = search_within_timeGet[0];
     search_within_time.addEventListener('click', function(){
       searchWithinTime();
-    }); 
+    });
+    searchBox.addListener('places_changed',function(){
+      searchBoxPlaces(this);
+    });
     // add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
     // and hie any outside of it.
