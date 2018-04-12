@@ -249,6 +249,13 @@ function initMap(){
       styles: styles,
       mapTypeControl: false
     });
+
+    // This autocomplete is for use in the search within time entry box.
+    var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
+    var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
+    // This autocomplete is for use in the seach in the geocoder entry box.
+    var zoomAutocompleteGet = document.getElementsByClassName('zoom-to-area-text');
+    var zoomAutocomplete = new google.maps.places.Autocomplete(zoomAutocompleteGet[0]);
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
     var locations = [
