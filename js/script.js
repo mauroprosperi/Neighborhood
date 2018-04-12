@@ -3,6 +3,9 @@ var map;
 var markers = [];
 // this global polygon variable is to ensure only ONE polygon is rendered.
 var polygon = null;
+// Create placemarkers array to use in multiple functions to have control
+// over the number of places that show.
+var placemarkers = [];
 
 function initMap(){
 //estilos
@@ -450,7 +453,7 @@ function initMap(){
     map.fitBounds(bounds);
   }
   // This function will loop through the listings and hide them all.
-  function hideListings() {
+  function hiderMarkers(markers) {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -635,4 +638,16 @@ function initMap(){
         window.alert('Directions request failed due to ' + status);
       }
     });
+  }
+
+  // This function fires when the user selects a searchbox picklist item.
+  // It will do a nearby search using the selected query string or place.
+  function searchBoxPlaces(searchBox) {
+    hiderMarkers(placemarkers);
+    var places = searchBox.getPlaces();
+    // for each place, get the icon, name and location.
+    creteMarkersForPlaces(places);
+    if (places.length === 0) {
+      window.alert('We did not find any places matching that search!');
+    }
   }
