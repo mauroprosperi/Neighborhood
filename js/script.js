@@ -337,6 +337,7 @@ function initMap(){
     toggle_drawing.addEventListener('click', function(){
       toggleDrawing(drawingManager);
     });
+
     var zoom_to_areaGet = document.getElementsByClassName('zoom-to-area');
     var zoom_to_area = zoom_to_areaGet[0];
     zoom_to_area.addEventListener('click', function(){
@@ -348,9 +349,18 @@ function initMap(){
     search_within_time.addEventListener('click', function(){
       searchWithinTime();
     });
+
+    // Listen for the event fired when the user selects a prediction from the
+    // picklist and retrieve more details for that place.
     searchBox.addListener('places_changed',function(){
       searchBoxPlaces(this);
     });
+    
+    // Listen for the event fired when the user selects a preictions and clicks
+    // "Go" more details for that palce.
+    var go_placesGet = document.getElementsByClassName('go-places');
+    go_placesGet[0].addEventListener('click', textSearchPlaces);
+
     // add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
     // and hie any outside of it.
