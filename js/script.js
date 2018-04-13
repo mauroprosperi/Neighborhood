@@ -335,7 +335,7 @@ function initMap(){
     var hide_listingGet = document.getElementsByClassName('hide-listings');
     var hide_listing = hide_listingGet[0];
     hide_listing.addEventListener('click', function(){
-      hiderMarkers(markers);
+      hideMarkers(markers);
     });
 
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
@@ -377,7 +377,7 @@ function initMap(){
       // esto limita el polygon a 1, se puede eliminar para permitir varios
       if (polygon) {
         polygon.setMap(null);
-        hideListings();
+        hideMarkers(markers);
       }
       // Switching the rawing moed to the HAND.
       drawingManager.setDrawingMode(null);
@@ -456,7 +456,7 @@ function initMap(){
     map.fitBounds(bounds);
   }
   // This function will loop through the listings and hide them all.
-  function hiderMarkers(markers) {
+  function hideMarkers(markers) {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
     }
@@ -535,7 +535,7 @@ function initMap(){
     if (address == ''){
       window.alert('You must enter an address');
     } else {
-      hideListings();
+      hideMarkers(markers);
       // Use the distance matrix service to calculate the duration of the
       // routes between all oour markers, and the destination address entered
       // by the user. Then put all the origins into an origin matrix.
@@ -613,7 +613,7 @@ function initMap(){
   // this function is in response to the user selecting " show route" on one
   // of the markers within the calculated distance. This will display the route on the map.
   function displayDirections(origin) {
-    hideListings();
+    hideMarkers(markers);
     var directionsService = new google.maps.DirectionsService;
     // Get the destination address from the user entered value.
     var destinationAddressGet = document.getElementsByClassName('search-within-time-text');
@@ -647,7 +647,7 @@ function initMap(){
   // This function fires when the user selects a searchbox picklist item.
   // It will do a nearby search using the selected query string or place.
   function searchBoxPlaces(searchBox) {
-    hiderMarkers(placeMarkers);
+    hideMarkers(placeMarkers);
     var places = searchBox.getPlaces();
     // for each place, get the icon, name and location.
     createMarkersForPlaces(places);
@@ -660,7 +660,7 @@ function initMap(){
   // It will do a nearby search using the entered query string or place.
   function textSearchPlaces(){
     var bounds = map.getBounds();
-    hiderMarkers(placeMarkers);
+    hideMarkers(placeMarkers);
     var placesService = new google.maps.places.PlacesService(map);
     var queryGet = document.getElementsByClassName('places-search');
     placesService.textSearch({
