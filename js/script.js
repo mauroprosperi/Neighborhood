@@ -5,7 +5,7 @@ var markers = [];
 var polygon = null;
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
-var placemarkers = [];
+var placeMarkers = [];
 
 function initMap(){
 //estilos
@@ -255,15 +255,15 @@ function initMap(){
 
     // This autocomplete is for use in the search within time entry box.
     var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
-    var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
+    var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0],options);
     // This autocomplete is for use in the seach in the geocoder entry box.
     var zoomAutocompleteGet = document.getElementsByClassName('zoom-to-area-text');
     var zoomAutocomplete = new google.maps.places.Autocomplete(zoomAutocompleteGet[0]);
     // Bias the boundaries within the map for the zoom to area text.
     zoomAutocomplete.bindTo('bounds', map);
     // create a searchbox in order to execute a places search
-    var searchboxGet = document.getElementsByClassName('places-search');
-    var searchbox = new google.maps.places.SearchBox(searchboxGet[0]);
+    var searchBoxGet = document.getElementsByClassName('places-search');
+    var searchBox = new google.maps.places.SearchBox(searchBoxGet[0]);
     // Bias the searchbox to ithin the bounds of the map.
     searchBox.setBounds(map.getBounds());
     
@@ -330,10 +330,12 @@ function initMap(){
     var show_listingGet = document.getElementsByClassName('show-listings');
     var show_listing = show_listingGet[0];
     show_listing.addEventListener('click',showListings);
-    
+
     var hide_listingGet = document.getElementsByClassName('hide-listings');
     var hide_listing = hide_listingGet[0];
-    hide_listing.addEventListener('click', hideListings);
+    hide_listing.addEventListener('click', function(){
+      hiderMarkers(markers);
+    });
 
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
     var toggle_drawing = toggle_drawingGet[0];
@@ -508,13 +510,14 @@ function initMap(){
       //Geocodeo la ubicacion para obtener el centro, luego, le hago zoom.
       geocoder.geocode(
         { address: address,
-        componentRestrictions: {locality: 'Mendoza'}
+        componentRestrictions: {country: 'AR'}
       }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
             map.setZoom(15);
           } else {
-            window.alert('We could not find that location - try entering a more' + 'especific place.');
+            window.alert('We could not find that location - try entering a more' +
+             'especific place.');
           }
         });
     }
@@ -643,10 +646,10 @@ function initMap(){
   // This function fires when the user selects a searchbox picklist item.
   // It will do a nearby search using the selected query string or place.
   function searchBoxPlaces(searchBox) {
-    hiderMarkers(placemarkers);
+    hiderMarkers(placeMarkers);
     var places = searchBox.getPlaces();
     // for each place, get the icon, name and location.
-    creteMarkersForPlaces(places);
+    createMarkersForPlaces(places);
     if (places.length === 0) {
       window.alert('We did not find any places matching that search!');
     }
@@ -656,7 +659,7 @@ function initMap(){
   // It will do a nearby search using the entered query string or place.
   function textSearchPlaces(){
     var bounds = map.getBounds();
-    hiderMarkers(placemarkers);
+    hiderMarkers(placeMarkers);
     var placesService = new google.maps.places.PlacesService(map);
     var queryGet = document.getElementsByClassName('places-search');
     placesService.textSearch({
@@ -664,7 +667,38 @@ function initMap(){
       bounds: bounds
     }, function(results, status){
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        createMarkerForPlaces(results);
+        createMarkersForPlaces(results);
       }
     });
+  }
+
+  // this function creates markers for each plane found in either places search.
+  function createMarkersForPlaces(places) {
+    var bounds = new google.maps.LatLngBounds();
+    for (let i = 0; i < places.length; i++) {
+      var place = places[i];
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(35, 35),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(15, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+      // Create a marker for each place.
+        var marker = new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location,
+          id: place.id
+        });
+        placeMarkers.push(marker);
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);        
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+    }
+    map.fitBounds(bounds);
   }
