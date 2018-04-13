@@ -254,8 +254,9 @@ function initMap(){
     });
 
     // This autocomplete is for use in the search within time entry box.
+    
     var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
-    var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0],options);
+    var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
     // This autocomplete is for use in the seach in the geocoder entry box.
     var zoomAutocompleteGet = document.getElementsByClassName('zoom-to-area-text');
     var zoomAutocomplete = new google.maps.places.Autocomplete(zoomAutocompleteGet[0]);
@@ -510,7 +511,7 @@ function initMap(){
       //Geocodeo la ubicacion para obtener el centro, luego, le hago zoom.
       geocoder.geocode(
         { address: address,
-        componentRestrictions: {country: 'AR'}
+        componentRestrictions: {locality: 'Mendoza'}
       }, function(results, status) {
           if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
