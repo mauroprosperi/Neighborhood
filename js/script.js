@@ -1,258 +1,103 @@
 var map;
-// crea un nuevo array en blanco para todos los marcadores.
+// Creates a new array in blank for all the marks.
 var markers = [];
-// this global polygon variable is to ensure only ONE polygon is rendered.
+// This global polygon variable is to ensure only ONE polygon is rendered.
 var polygon = null;
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
 var placeMarkers = [];
 
 function initMap(){
-//estilos
+//estilos -- estyles
 		var styles =[
-  {
-    "elementType": "geometry",
-    "stylers": [
+      {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
+      {elementType: 'labels.text.fill', stylers: [{color: '#746855'}]},
       {
-        "color": "#1d2c4d"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#8ec3b9"
-      }
-    ]
-  },
-  {
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#1a3646"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.country",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#4b6878"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.land_parcel",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#64779e"
-      }
-    ]
-  },
-  {
-    "featureType": "administrative.province",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#4b6878"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape.man_made",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#334e87"
-      }
-    ]
-  },
-  {
-    "featureType": "landscape.natural",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#023e58"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#283d6a"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#6f9ba5"
-      }
-    ]
-  },
-  {
-    "featureType": "poi",
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#1d2c4d"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "geometry.fill",
-    "stylers": [
-      {
-        "color": "#023e58"
-      }
-    ]
-  },
-  {
-    "featureType": "poi.park",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#3C7680"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#304a7d"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#98a5be"
-      }
-    ]
-  },
-  {
-    "featureType": "road",
-    "elementType": "labels.text.stroke",
-    "stylers": [
-      {
-        "color": "#1d2c4d"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry",
-    "stylers": [
-      {
-        "color": "#2c6675"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "geometry.stroke",
-    "stylers": [
-      {
-        "color": "#255763"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "labels.text.fill",
-    "stylers": [
-      {
-        "color": "#b0d5ce"
+        featureType: 'administrative.locality',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
       },
       {
-        "visibility": "simplified"
-      }
-    ]
-  },
-  {
-    "featureType": "road.highway",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+        featureType: 'poi',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
       {
-        "color": "#023e58"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "elementType": "labels.text.fill",
-    "stylers": [
+        featureType: 'poi.park',
+        elementType: 'geometry',
+        stylers: [{color: '#263c3f'}]
+      },
       {
-        "color": "#98a5be"
-      }
-    ]
-  },
-  {
-    "featureType": "transit",
-    "elementType": "labels.text.stroke",
-    "stylers": [
+        featureType: 'poi.park',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#6b9a76'}]
+      },
       {
-        "color": "#1d2c4d"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.line",
-    "elementType": "geometry.fill",
-    "stylers": [
+        featureType: 'road',
+        elementType: 'geometry',
+        stylers: [{color: '#38414e'}]
+      },
       {
-        "color": "#283d6a"
-      }
-    ]
-  },
-  {
-    "featureType": "transit.station",
-    "elementType": "geometry",
-    "stylers": [
+        featureType: 'road',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#212a37'}]
+      },
       {
-        "color": "#3a4762"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "geometry",
-    "stylers": [
+        featureType: 'road',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#9ca5b3'}]
+      },
       {
-        "color": "#0e1626"
-      }
-    ]
-  },
-  {
-    "featureType": "water",
-    "elementType": "labels.text.fill",
-    "stylers": [
+        featureType: 'road.highway',
+        elementType: 'geometry',
+        stylers: [{color: '#746855'}]
+      },
       {
-        "color": "#4e6d70"
+        featureType: 'road.highway',
+        elementType: 'geometry.stroke',
+        stylers: [{color: '#1f2835'}]
+      },
+      {
+        featureType: 'road.highway',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#f3d19c'}]
+      },
+      {
+        featureType: 'transit',
+        elementType: 'geometry',
+        stylers: [{color: '#2f3948'}]
+      },
+      {
+        featureType: 'transit.station',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#d59563'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'geometry',
+        stylers: [{color: '#17263c'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.fill',
+        stylers: [{color: '#515c6d'}]
+      },
+      {
+        featureType: 'water',
+        elementType: 'labels.text.stroke',
+        stylers: [{color: '#17263c'}]
       }
-    ]
-  }
 ];
-		// Crea el mapa y lo posiciona en una posicion de Lat y Lng
+    // Constructor creates a new map - only center and zoom are required
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: -32.912951, lng: -68.862329},
       zoom: 15,
       styles: styles,
       mapTypeControl: false
     });
-
+    var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
     // This autocomplete is for use in the search within time entry box.
     var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
     var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
@@ -266,7 +111,6 @@ function initMap(){
     var searchBox = new google.maps.places.SearchBox(searchBoxGet[0]);
     // Bias the searchbox to ithin the bounds of the map.
     searchBox.setBounds(map.getBounds());
-    
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
     var locations = [
@@ -322,11 +166,9 @@ function initMap(){
         this.setIcon(defaultIcon);
       });
     }
-    // new syntax, dunno how to make it work yet
-      //var [hide_listings] = document.getElementsByClassName('hide-listings');
-      //from [hide_listing].addEventListener('click',show_listings);
-    
-      // added event listener on click to the buttons, this way, because.. classes...
+      // added event listener on click to the buttons
+      // getting elements by class name returns an array, so I take the first 
+      // element and then aply the function.
     var show_listingGet = document.getElementsByClassName('show-listings');
     var show_listing = show_listingGet[0];
     show_listing.addEventListener('click',showListings);
@@ -335,6 +177,7 @@ function initMap(){
     var hide_listing = hide_listingGet[0];
     hide_listing.addEventListener('click', function(){
       hideMarkers(markers);
+      
     });
 
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
@@ -366,7 +209,7 @@ function initMap(){
     var go_placesGet = document.getElementsByClassName('go-places');
     go_placesGet[0].addEventListener('click', textSearchPlaces);
 
-    // add an event listener so that the polygon is captured, call the
+    // Add an event listener so that the polygon is captured, call the
     // searchWithinPolygon function. This will show the markers in the polygon,
     // and hie any outside of it.
 
@@ -382,15 +225,16 @@ function initMap(){
       drawingManager.setDrawingMode(null);
       // Creating a new editable polygon from the overlay.
       polygon = event.overlay;
-      // el polygon tambien puede ser draggable
+      // Polygon can be draggable
       polygon.setEditable(true);
       // Searching within the polygon.
       searchWithinPolygon();
       // Make sure the search is re-done if the poly is changed.
       polygon.getPath().addListener('set_at', searchWithinPolygon);
       polygon.getPath().addListener('insert_at', searchWithinPolygon);
+      // Shows the Area of the polygon
       var Area = google.maps.geometry.spherical.computeArea(polygon.getPath());
-      alert(Area);
+      alert("The area on m2 is: " + Area);
     });
   }
   // This function populates the infowindow when the marker is clicked. We'll only allow
@@ -467,8 +311,7 @@ function initMap(){
       new google.maps.Size(21,34));
     return markerImage;
   }
-
-  // this shows and hides the drawing options
+  // This shows and hides the drawing options
   function toggleDrawing(drawingManager) {
     if (drawingManager.map) {
       drawingManager.setMap(null);
@@ -490,18 +333,21 @@ function initMap(){
     }
   }
 
-  // Thi function takes the input value and locate it and zooms into that area.
+  // This function takes the input value in the find nearby area text input
+  // locates it, and then zooms into that area. This is so that the user can
+  // show all listings, then decide to focus on one area of the map.
   function zoomToArea(){
-    // inicializo el geocoder
+    // Initialize the geocoder.
     var geocoder = new google.maps.Geocoder();
-    // Agarro la ubicacion o lugar que el usuario escribio.
+    // Get the address or place that the user entered.
     var zoom_to_area_texts = document.getElementsByClassName('zoom-to-area-text');
     var address = zoom_to_area_texts[0].value;
-    //revisa si escribio en blanco
+    // Make sure the address isn't blank.
     if (address == ''){
       window.alert('You must enter an area, or address.');
     } else {
-      //Geocodeo la ubicacion para obtener el centro, luego, le hago zoom.
+      // Geocode the address/area entered to get the center. Then, center the map
+      // on it and zoom in
       geocoder.geocode(
         { address: address,
         componentRestrictions: {locality: 'Mendoza'}
@@ -518,13 +364,13 @@ function initMap(){
   }
   // This functions allows the user to input a desired travel time,
   // a travel mode and a location and only show the listings that are
-  //within that travel time ( via that travel mode) of the location.
+  // within that travel time ( via that travel mode) of the location.
   function searchWithinTime(){
-    // initialize the distance matrix service.
+    // Initialize the distance matrix service.
     var distanceMatrixService = new google.maps.DistanceMatrixService;
     var search_within_time_texts = document.getElementsByClassName('search-within-time-text');
     var address = search_within_time_texts[0].value;
-    // check to make sure the place entered isn't blank.
+    // Check to make sure the place entered isn't blank.
     if (address == ''){
       window.alert('You must enter an address');
     } else {
@@ -578,7 +424,7 @@ function initMap(){
           var duration = element.duration.value / 60;
           var durationText = element.duration.text;
           if (duration <= maxDuration) {
-            // the origin [i] should = the makers[i]
+            // The origin [i] should = the makers[i]
             markers[i].setMap(map);
             atLeastOne = true;
             // Create a mini infowindow to open immediately and contain
@@ -588,7 +434,7 @@ function initMap(){
                '\"displayDirections(&quot;' + origins[i] + '&quot;);\"></input></div>'
              });
              infowindow.open(map, markers[i]);
-             // put this in so that this samll window closes if the user clicks
+             // Put this in so that this samll window closes if the user clicks
              // the marker, when the big infowindow opens
              markers[i].infowindow = infowindow;
              google.maps.event.addListener(markers[i],'click',function(){
@@ -603,7 +449,7 @@ function initMap(){
     }
   }
 
-  // this function is in response to the user selecting " show route" on one
+  // This function is in response to the user selecting " show route" on one
   // of the markers within the calculated distance. This will display the route on the map.
   function displayDirections(origin) {
     hideMarkers(markers);
@@ -617,12 +463,12 @@ function initMap(){
     directionsService.route({
       // The origin is the passed in marker's position.
       origin: origin,
-      // the destination is the user entered address.
+      // The destination is the user entered address.
       destination: destinationAddress,
       travelMode: google.maps.TravelMode[mode]
     }, function(response, status ){
       if (status === google.maps.DirectionsStatus.OK) {
-        var directionsDsiaplys = new google.maps.DirectionsRenderer({
+        var directionsDisplays = new google.maps.DirectionsRenderer({
           map: map,
           directions: response,
           draggable: true,
@@ -642,14 +488,14 @@ function initMap(){
   function searchBoxPlaces(searchBox) {
     hideMarkers(placeMarkers);
     var places = searchBox.getPlaces();
-    // for each place, get the icon, name and location.
+    // For each place, get the icon, name and location.
     createMarkersForPlaces(places);
     if (places.length === 0) {
       window.alert('We did not find any places matching that search!');
     }
   }
 
-  // this function firest twhen the user select "go" on the places search.
+  // This function firest twhen the user select "go" on the places search.
   // It will do a nearby search using the entered query string or place.
   function textSearchPlaces(){
     var bounds = map.getBounds();
@@ -666,7 +512,7 @@ function initMap(){
     });
   }
 
-  // this function creates markers for each plane found in either places search.
+  // This function creates markers for each plane found in either places search.
   function createMarkersForPlaces(places) {
     var bounds = new google.maps.LatLngBounds();
     for (let i = 0; i < places.length; i++) {
@@ -686,7 +532,7 @@ function initMap(){
           position: place.geometry.location,
           id: place.place_id
         });
-        // create a single infowindow to be used with the place details information
+        // Create a single infowindow to be used with the place details information
         // so that only one is open at once.
         var placeInfoWindow = new google.maps.InfoWindow();
         // If a marker is clicked, do a place details serach on it in the next function.
