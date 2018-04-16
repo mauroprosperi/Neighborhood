@@ -1,5 +1,8 @@
 casa del gordo ; -32.946843,-68.804855
 
+
+para tirar todo a github ; git push -u origin master
+
 bugs ; 
 
  no me salen texto en los marcadores
