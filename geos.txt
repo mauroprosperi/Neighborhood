@@ -1,1 +1,7 @@
 casa del gordo ; -32.946843,-68.804855
+
+bugs ; 
+
+ no me salen texto en los marcadores
+
+	linea gris lado derecho de mapa al apretar go multiples veces
