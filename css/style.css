@@ -13,7 +13,7 @@ h1{
 }
 .hide-listings,
 .show-listings {
-	background-color: #1C3D5A;
+	background-color: #38414e;
 	width: 48%;
 	color: rgba(153, 148, 226, 0.781);
 }
@@ -22,7 +22,7 @@ h1{
 	height: 100%;
 }
 .options-box{
-	background: #1C3D5A;
+	background: #212a37;
 	border: 1px solid #999;
 	line-height: 25px;
 	text-align: center;
@@ -30,36 +30,42 @@ h1{
 }
 .toggle-drawing{
 	color: rgba(153, 148, 226, 0.781);
-	background-color: #1C3D5A;
-	width: 30%;
-	margin-top: 10px;
+	background-color: #38414e;
+	margin-top: 15px;
+}
+.destinations{
+	color: rgba(153, 148, 226, 0.781);
 }
 .zoom,
 .duration,
 .draw,
-.places{
+.places,
+.traffic{
 	border-top: 1px solid silver;
-	margin-top:20px;
+	margin-top:40px;
 	padding: 5px;
+	color: rgba(153, 148, 226, 0.781);
+}
+::-webkit-input-placeholder{
+	text-align: center;
 	color: rgba(153, 148, 226, 0.781);
 }
 .zoom-to-area,
 .search-within-time,
 .max-duration,
 .mode,
-.destinations,/* destination dosn't use background-color*/
-.go-places,
-::-webkit-input-placeholder{ 
-	color: rgba(153, 148, 226, 0.781);
-	background-color: #1C3D5A;
+.go-places {
+	background-color: #38414e;
 	text-align: center;
+	margin-top: 10px;
 	color: rgba(153, 148, 226, 0.781);
 }
 .zoom-to-area-text,
 .search-within-time-text,
-.places-search {
-	background-color: #1C3D5A;
-	width: 60%;
+.places-search,
+.go-traffic {
+	background-color: #38414e;
+	width: 70%;
 	color: rgba(153, 148, 226, 0.781);
 }
 #pano{
