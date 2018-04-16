@@ -254,7 +254,6 @@ function initMap(){
     });
 
     // This autocomplete is for use in the search within time entry box.
-    
     var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
     var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
     // This autocomplete is for use in the seach in the geocoder entry box.
@@ -393,12 +392,6 @@ function initMap(){
       var Area = google.maps.geometry.spherical.computeArea(polygon.getPath());
       alert(Area);
     });
-  // old way working whit ID
-    //document.getElementById('show-listings').addEventListener('click', showListings);
-    //document.getElementById('hide-listings').addEventListener('click', hideListings);
-    // document.getElementById('toggle-drawing').addEventListener('click',function(){
-    //toggleDrawing(drawingManager);
-    //});
   }
   // This function populates the infowindow when the marker is clicked. We'll only allow
   // one infowindow which will open at the marker that is clicked, and populate based
@@ -691,7 +684,7 @@ function initMap(){
           icon: icon,
           title: place.name,
           position: place.geometry.location,
-          id: place.id
+          id: place.place_id
         });
         placeMarkers.push(marker);
         if (place.geometry.viewport) {
