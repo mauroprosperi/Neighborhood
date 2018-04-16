@@ -43,18 +43,17 @@ h1{
 	padding: 5px;
 	color: rgba(153, 148, 226, 0.781);
 }
-::-webkit-input-placeholder{
-	text-align: center;
-	color: rgba(153, 148, 226, 0.781);
-}
 .zoom-to-area,
 .search-within-time,
 .max-duration,
 .mode,
 .destinations,/* destination dosn't use background-color*/
-.go-places{ 
+.go-places,
+::-webkit-input-placeholder{ 
 	color: rgba(153, 148, 226, 0.781);
 	background-color: #1C3D5A;
+	text-align: center;
+	color: rgba(153, 148, 226, 0.781);
 }
 .zoom-to-area-text,
 .search-within-time-text,
