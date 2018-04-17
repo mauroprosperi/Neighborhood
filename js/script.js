@@ -177,12 +177,17 @@ function initMap(){
       hideMarkers(markers);
       
     });
-    var trafficLayerGet = document.getElementsByClassName('go-traffic');
-    var trafficLayer = trafficLayerGet[0];
-    trafficLayer.addEventListener('click', function(){
+    var trafficLayerShowGet = document.getElementsByClassName('show-traffic');
+    var trafficLayerShow = trafficLayerShowGet[0];
+    trafficLayerShow.addEventListener('click', function(){
       showTraffic();
     });
 
+    var trafficLayerHideGet = document.getElementsByClassName('hide-traffic');
+    var trafficLayerHide = trafficLayerHideGet[0];
+    trafficLayerHide.addEventListener('click', function(){
+      hideTraffic();
+    });
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
     var toggle_drawing = toggle_drawingGet[0];
     toggle_drawing.addEventListener('click', function(){
@@ -305,19 +310,12 @@ function initMap(){
 
   // This function displays the traffic layer on the map 
   function showTraffic(){
-    var verific = false;
     var trafficLayer = new google.maps.TrafficLayer();
     trafficLayer.setMap(map);
-    if (verific) {
-      trafficLayer.setMap(null);
-      verific = false;
-    } else {
-      trafficLayer.setMap(map);
-      verific = true;
-    }
-    
   }
-
+  function hideTraffic(){
+    window.location.reload(true);
+  }
   // This function takes in a COLOR, and then creates a new marker
   // icon of that color. The icon will be 21 px wide by 34 high, have an origin
   // of 0, 0 and be anchored at 10, 34).
