@@ -96,8 +96,6 @@ function initMap(){
       styles: styles,
       mapTypeControl: false
     });
-    var trafficLayer = new google.maps.TrafficLayer();
-        trafficLayer.setMap(map);
     // This autocomplete is for use in the search within time entry box.
     var timeAutoCompleteGet = document.getElementsByClassName('search-within-time-text');
     var timeAutoComplete = new google.maps.places.Autocomplete(timeAutoCompleteGet[0]);
@@ -178,6 +176,11 @@ function initMap(){
     hide_listing.addEventListener('click', function(){
       hideMarkers(markers);
       
+    });
+    var trafficLayerGet = document.getElementsByClassName('go-traffic');
+    var trafficLayer = trafficLayerGet[0];
+    trafficLayer.addEventListener('click', function(){
+      showTraffic();
     });
 
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
@@ -296,8 +299,25 @@ function initMap(){
   function hideMarkers(markers) {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
+      trafficLayer.setMap(null);
     }
   }
+
+  // This function displays the traffic layer on the map 
+  function showTraffic(){
+    var verific = false;
+    var trafficLayer = new google.maps.TrafficLayer();
+    trafficLayer.setMap(map);
+    if (verific) {
+      trafficLayer.setMap(null);
+      verific = false;
+    } else {
+      trafficLayer.setMap(map);
+      verific = true;
+    }
+    
+  }
+
   // This function takes in a COLOR, and then creates a new marker
   // icon of that color. The icon will be 21 px wide by 34 high, have an origin
   // of 0, 0 and be anchored at 10, 34).
