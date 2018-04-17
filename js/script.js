@@ -6,7 +6,6 @@ var polygon = null;
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
 var placeMarkers = [];
-
 function initMap(){
 //estilos -- estyles
 		var styles =[
@@ -177,16 +176,10 @@ function initMap(){
       hideMarkers(markers);
       
     });
-    var trafficLayerShowGet = document.getElementsByClassName('show-traffic');
-    var trafficLayerShow = trafficLayerShowGet[0];
-    trafficLayerShow.addEventListener('click', function(){
-      showTraffic();
-    });
-
-    var trafficLayerHideGet = document.getElementsByClassName('hide-traffic');
-    var trafficLayerHide = trafficLayerHideGet[0];
-    trafficLayerHide.addEventListener('click', function(){
-      hideTraffic();
+    var trafficLayerGet = document.getElementsByClassName('show-traffic');
+    var trafficLayer = trafficLayerGet[0];
+    trafficLayer.addEventListener('click', function(){
+      Traffic();
     });
     var toggle_drawingGet = document.getElementsByClassName('toggle-drawing');
     var toggle_drawing = toggle_drawingGet[0];
@@ -304,17 +297,21 @@ function initMap(){
   function hideMarkers(markers) {
     for (var i = 0; i < markers.length; i++) {
       markers[i].setMap(null);
-      trafficLayer.setMap(null);
     }
   }
 
   // This function displays the traffic layer on the map 
-  function showTraffic(){
+  var verific = false;
+  function Traffic(){
     var trafficLayer = new google.maps.TrafficLayer();
     trafficLayer.setMap(map);
-  }
-  function hideTraffic(){
-    window.location.reload(true);
+    if (verific) {
+      window.location.reload(true);
+      verific = false;
+    } else {
+      trafficLayer.setMap(map);
+      verific = true;
+    }
   }
   // This function takes in a COLOR, and then creates a new marker
   // icon of that color. The icon will be 21 px wide by 34 high, have an origin

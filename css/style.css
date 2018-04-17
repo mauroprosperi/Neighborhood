@@ -13,8 +13,7 @@ h1{
 }
 .hide-listings,
 .show-listings,
-.show-traffic,
-.hide-traffic{
+.show-traffic{
 	background-color: #38414e;
 	width: 48%;
 	color: rgba(153, 148, 226, 0.781);
