@@ -12,7 +12,9 @@ h1{
 	text-align: left;
 }
 .hide-listings,
-.show-listings {
+.show-listings,
+.show-traffic,
+.hide-traffic{
 	background-color: #38414e;
 	width: 48%;
 	color: rgba(153, 148, 226, 0.781);
@@ -35,6 +37,7 @@ h1{
 }
 .destinations{
 	color: rgba(153, 148, 226, 0.781);
+	margin-top: 10px;
 }
 .zoom,
 .duration,
@@ -54,7 +57,7 @@ h1{
 .search-within-time,
 .max-duration,
 .mode,
-.go-places {
+.go-places{
 	background-color: #38414e;
 	text-align: center;
 	margin-top: 10px;
@@ -62,8 +65,7 @@ h1{
 }
 .zoom-to-area-text,
 .search-within-time-text,
-.places-search,
-.go-traffic {
+.places-search{
 	background-color: #38414e;
 	width: 70%;
 	color: rgba(153, 148, 226, 0.781);
