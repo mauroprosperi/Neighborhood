@@ -1,20 +1,22 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Geo-Map</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">	
 </head>
 <body>
 	<div class="container">
 		<div class="options-box">
 			<h1>Descubre Negocios En la Zona!</h1>
 			<div>
+				/*data-bind="click: $root.showListings" */ 
 			<input class="show-listings" type="button"	value="Show Listings">
 			<input class="hide-listings" type="button"	value="Hide Listings">
 			<div class="draw">Draw a shape to search within it for homes!</div>
 			<input class="toggle-drawing" type="button" value="Drawing Tools">
 		</div>
-		<div class="intento">
+		<div>
 			<div class="zoom">Zoom to the zone you want!</div>
 			<input class="zoom-to-area-text" type="text" placeholder="Ex: Godoy Cruz">
 			<input class="zoom-to-area" type="button" value="Zoom">
@@ -50,6 +52,7 @@
 	<div id="map"></div>
 </div>
   <script src="js/script.js"></script>
+  <script src="js/knockout-3.4.2js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBOWUirkv4jJay3pbsGhqG9W3_JvboDews&v=3&callback=initMap"
   async defer></script>
  </body>
