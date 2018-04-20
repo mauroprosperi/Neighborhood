@@ -6,7 +6,7 @@ var polygon = null;
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
 var placeMarkers = [];
-function initMap(){
+var initMap = function() {
 //estilos -- estyles
 		var styles =[
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -166,10 +166,6 @@ function initMap(){
       // added event listener on click to the buttons
       // getting elements by class name returns an array, so I take the first 
       // element and then aply the function.
-    var show_listingGet = document.getElementsByClassName('show-listings');
-    var show_listing = show_listingGet[0];
-    show_listing.addEventListener('click',showListings);
-
     var hide_listingGet = document.getElementsByClassName('hide-listings');
     var hide_listing = hide_listingGet[0];
     hide_listing.addEventListener('click', function(){
@@ -613,3 +609,11 @@ function initMap(){
       }
     });
   }
+  // the idea of putting the initmap and a errorHandling was taken by another student advice!
+function startApp(){
+  ko.applyBindings(new initMap());
+}
+
+function errorHandling() {
+	alert("Google Maps has failed to load. Please check your internet connection and try again.");
+}
