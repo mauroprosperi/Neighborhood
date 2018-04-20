@@ -6,7 +6,7 @@ var polygon = null;
 // Create placemarkers array to use in multiple functions to have control
 // over the number of places that show.
 var placeMarkers = [];
-var initMap = function() {
+function initMap() {
 //estilos -- estyles
 		var styles =[
       {elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -110,14 +110,15 @@ var initMap = function() {
     searchBox.setBounds(map.getBounds());
     // These are the real estate listings that will be shown to the user.
     // Normally we'd have these in a database instead.
+   
     var locations = [
-      {title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}},
-      {title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}},
-      {title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}},
-      {title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
+     {title: 'Loco Al Pollo', location: {lat: -32.911912, lng: -68.860137}},
+     {title: 'Tia Rasca', location: {lat: -32.912898, lng: -68.860165}},
+     {title: 'La granja de los Quesos', location: {lat: -32.914685, lng: -68.860201}},
+     {title: 'La casa del IONI', location: {lat: -32.908116, lng: -68.859394}}
     ];
     var largeInfowindow = new google.maps.InfoWindow();
-
+    
     // Initialize the drawing manager
     var drawingManager = new google.maps.drawing.DrawingManager({
       drawingMode: google.maps.drawing.OverlayType.POLYGON,
@@ -166,11 +167,15 @@ var initMap = function() {
       // added event listener on click to the buttons
       // getting elements by class name returns an array, so I take the first 
       // element and then aply the function.
+    var show_listingGet = document.getElementsByClassName('show-listings');
+    var show_listings = show_listingGet[0];
+    show_listings.addEventListener('click',function(){
+      showListings(markers);
+    });  
     var hide_listingGet = document.getElementsByClassName('hide-listings');
     var hide_listing = hide_listingGet[0];
     hide_listing.addEventListener('click', function(){
       hideMarkers(markers);
-      
     });
     var trafficLayerGet = document.getElementsByClassName('show-traffic');
     var trafficLayer = trafficLayerGet[0];
@@ -295,7 +300,6 @@ var initMap = function() {
       markers[i].setMap(null);
     }
   }
-
   // This function displays the traffic layer on the map 
   var verific = false;
   function Traffic(){
@@ -609,11 +613,3 @@ var initMap = function() {
       }
     });
   }
-  // the idea of putting the initmap and a errorHandling was taken by another student advice!
-function startApp(){
-  ko.applyBindings(new initMap());
-}
-
-function errorHandling() {
-	alert("Google Maps has failed to load. Please check your internet connection and try again.");
-}

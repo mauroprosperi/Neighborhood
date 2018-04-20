@@ -11,7 +11,7 @@
 		<div class="options-box">
 			<h1>Descubre Negocios En la Zona!</h1>
 			<div>
-			<input class="show-listings" type="button data-bind="click: $root.showListings"" value="Show Listings">
+			<input class="show-listings" type="button" value="Show Listings">
 			<input class="hide-listings" type="button"	value="Hide Listings">
 			<div class="draw">Draw a shape to search within it for homes!</div>
 			<input class="toggle-drawing" type="button" value="Drawing Tools">
@@ -53,7 +53,8 @@
 </div>
   <script src="js/script.js"></script>
   
-  <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyBOWUirkv4jJay3pbsGhqG9W3_JvboDews&v=3&callback=startApp" oneerror="errorHandling()"
-  async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&
+  key=AIzaSyBOWUirkv4jJay3pbsGhqG9W3_JvboDews&v=3&callback=initMap"
+    async defer></script>
  </body>
 </html>
